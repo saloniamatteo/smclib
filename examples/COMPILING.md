@@ -4,7 +4,9 @@ Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matte
 
 ### List containing Library names
 `color`: refers to the `color.h` Library;
+
 `compiler`: refers to the `compiler.h` and `platform.h` Libraries
+
 `platform`: same as `compiler`
 
 ### Compiling an Example
