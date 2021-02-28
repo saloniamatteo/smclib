@@ -26,7 +26,8 @@ cd smclib/examples
 make [example]
 ```
 
-Where `[example]` is the name of a library. (See below)
+Where `[example]` is the name of a library.
+(See [this file](https://github.com/saloniamatteo/smclib/blob/master/examples/COMPILING.md) for more info)
 
 ### Included Libraries
 + color.h: color a string (see `color.c` for an example implementation)
