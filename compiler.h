@@ -25,6 +25,10 @@
 /* Check MSVC */
 #elif defined _MSC_VER
 #define CC "MSVC"
+
+/* Handle unknown compilers */
+#else
+#define CC "Unknown Compiler"
 #endif
 
 #endif /* _COMPILER_H */

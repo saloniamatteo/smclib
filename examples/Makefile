@@ -13,7 +13,7 @@ CFLAGS = -Wall -D_POSIX_C_SOURCE=200809L
 # CSTD: which C revision to use
 CSTD = c99
 
-all: color compiler
+all: color compiler platform
 
 # color
 color: color.o

@@ -16,3 +16,5 @@ make [example]
 ```
 
 (where `[example]` is a Library name) to compile an Example that uses the chosen Library.
+
+Also, it's possible to just run `make`, to compile all of the Examples.

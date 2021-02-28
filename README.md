@@ -1,4 +1,4 @@
-## SMCLib
+[##](##) SMCLib
 
 Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matteo.
 
@@ -12,15 +12,15 @@ Simply `#include "library.h"` in your C source code, making sure you have a copy
 (NOTE: Obviously, `library.h` refers to a Library in this repository)
 
 ### Compiling Examples
-For every Library, at least one example file is included.
+For every Library, at least one Example file is included.
 
-If you want to compile all of the examples in the example folder, run:
+If you want to compile all of the Examples in the example folder, run:
 ```bash
 cd smclib/examples
 make
 ```
 
-If you just want to compile a single example, run:
+If you just want to compile a single Example, run:
 ```bash
 cd smclib/examples
 make [example]
@@ -34,6 +34,7 @@ Where `[example]` is the name of a library.
 	- Contains one function, `color`.
 
 + compiler.h: define used compiler (see `compiler.c` for an example implementation)
-	- defines "CC", which will contain the name of the compiler used (CLang, GCC, or MSVC)
+	- defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`)
+
 + platform.h: define target architecture (see `compiler.c` for an example implementation)
-	- defines "ARCH", which will contain the name of the target architecture
+	- defines `ARCH`, which will contain the name of the target architecture
