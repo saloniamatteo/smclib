@@ -23,6 +23,8 @@ color.o: color.c ../color.h
 	$(CC) -c color.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 
 # compiler & platform
+platform: compiler
+
 compiler: compiler.o
 	$(CC) compiler.o -o compiler $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 
@@ -32,4 +34,4 @@ compiler.o: compiler.c ../compiler.h ../platform.h
 clean:
 	rm -f *.o color compiler
 
-.PHONY: all clean color compiler
+.PHONY: all clean color compiler platform
