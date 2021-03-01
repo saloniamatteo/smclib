@@ -1,4 +1,4 @@
-[##](##) SMCLib
+## SMCLib
 
 Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matteo.
 
