@@ -4,7 +4,7 @@ Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matte
 
 + TODO:
 	- ~`color.h`: need to figure out how to make the function return a string, without needing to allocate memory~
-	initial implementation with `color-new.h`: need to fix issue where multiple strings are used in a single `printf`; Example:
+	- initial implementation with `color-new.h`: need to fix issue where multiple strings are used in a single `printf`; Example:
 	
 	```c
 	#include <stdio.h>
