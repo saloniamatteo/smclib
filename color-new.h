@@ -15,8 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#warning "Use the new implementation, 'color-new.h', instead!"
-
 #ifndef _COLOR_H
 #define _COLOR_H
 
@@ -76,31 +74,60 @@ enum fontEffects {
 	bWhiteBg = 107
 } fontEffects;
 
+static char *coloredStr = NULL;
+static char tmpcol[300] = {0};
+
 /* This function will color a text string using ASCII escape sequences */
-static int
-color(char *string, int colorCount, ...) 
+static char
+*color(char *string, int colorCount, ...)
 {
+	/* Zero-initialize the variable */
+	for (int i = 0; i < sizeof(tmpcol); i++)
+		tmpcol[i] = '\0';
+
+	/* Create and dynamically allocate variables */
+	char *tmp = NULL;
+	tmp = (char*) calloc(strlen(string), strlen(string) * colorCount);
+	coloredStr = (char*) calloc(strlen(string), strlen(string) * colorCount);
+
+	/* Check if pointers are NULL */
+	if (tmp == NULL || coloredStr == NULL)
+		exit(1);
+
 	/* Create variadic argument list */
 	va_list argl;
 
 	/* Make sure color count is not less than 1 */
 	if (colorCount <= 0)
-		return 1;
+		exit(2);
 
 	/* Initialize variadic argument list */
 	va_start(argl, colorCount);
 
-	/* Print every given color, prepending the ASCII escape sequence "\e[COLORm" */
-	for (int i = 1; i <= colorCount; i++)
-		printf("\e[%dm", va_arg(argl, int));
+	/* Append every given color to tmp, prepending the ASCII escape sequence "\e[COLORm" */
+	for (int i = 1; i <= colorCount; i++) {
+		sprintf(tmp, "\e[%dm", va_arg(argl, int));
+		strcat(coloredStr, tmp);
+	}
 
 	/* We don't need the variadic arguments list anymore */
 	va_end(argl);
 
 	/* Print the wanted string, then reset the color */
-	printf("%s\e[%dm", string, reset);
+	sprintf(tmp, "%s\e[%dm", string, reset);
+	strcat(coloredStr, tmp);
 
-	return 0;
+	/* Free allocated memory */
+	free(tmp);
+
+	/* Copy colored string to tmpcol */
+	strcpy(tmpcol, coloredStr);
+
+	/* Free allocated memory */
+	free(coloredStr);
+
+	/* Return the colored string */
+	return tmpcol;
 }
 
 #endif /* _COLOR_H */
