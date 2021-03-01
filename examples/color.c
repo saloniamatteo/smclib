@@ -22,11 +22,6 @@ main(int argc, char **argv)
 	printf(" made by ");
 	color("Matteo Salonia\n", 2, redBg, bold);
 
-	printf("This is a basic C program to showcase the ");
-	color("color.h library", 2, blueBg, bold);
-	printf(" made by ");
-	color("Matteo Salonia\n", 2, redBg, bold);
-
 	printf("Compiled on ");
 	color(__DATE__, 2, greenBg, bold);
 	printf(" at ");
@@ -49,7 +44,7 @@ main(int argc, char **argv)
 	printf("Using variadic functions, I can pass ");
 	color("as ", 3, bold, redBg, italic);
 	color("many ", 3, bold, greenBg, underline);
-	color("colors", 3, bold, blueBg, sblink);
+	color("colors", 3, bold, blueBg, fblink);
 	printf(" as I want to the function!\n\n");
 
 	printf("Examples:\n");

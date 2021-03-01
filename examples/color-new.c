@@ -45,7 +45,7 @@ main(int argc, char **argv)
 		color("as ", 3, bold, redBg, italic));
 	printf("%s", color("many ", 3, bold, greenBg, underline));
 	printf("%s as I want to the function!\n\n",
-		color("colors", 3, bold, blueBg, sblink));
+		color("colors", 3, bold, blueBg, fblink));
 
 	printf("Examples:\n");
 

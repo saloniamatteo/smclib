@@ -85,12 +85,21 @@ static char
 	for (int i = 0; i < sizeof(tmpcol); i++)
 		tmpcol[i] = '\0';
 
-	/* Create and dynamically allocate variables */
-	char *tmp = NULL;
-	tmp = (char*) calloc(strlen(string), strlen(string) * colorCount);
-	coloredStr = (char*) calloc(strlen(string), strlen(string) * colorCount);
+	/* Assign size to allocate to integer variable */
+	int malloc_size = sizeof(char) * strlen(string) * colorCount;
 
-	/* Check if pointers are NULL */
+	/* Create temporary variable */
+	char *tmp = NULL;
+
+	/* Dynamically allocate variables */
+	tmp = (char*) calloc(colorCount, malloc_size);
+	coloredStr = (char*) calloc(colorCount, malloc_size);
+
+	/* Make sure variables are 0-ed */
+	memset(coloredStr, 0, malloc_size);
+	memset(tmp, 0, malloc_size);
+	memset(tmpcol, 0, sizeof(tmpcol));
+
 	if (tmp == NULL || coloredStr == NULL)
 		exit(1);
 
@@ -113,18 +122,16 @@ static char
 	/* We don't need the variadic arguments list anymore */
 	va_end(argl);
 
-	/* Print the wanted string, then reset the color */
+	/* Put the wanted string in tmp, resetting the color, copying it in coloredStr */
 	sprintf(tmp, "%s\e[%dm", string, reset);
 	strcat(coloredStr, tmp);
 
-	/* Free allocated memory */
-	free(tmp);
-
-	/* Copy colored string to tmpcol */
+	/* Copy colored string from coloredStr to tmpcol */
 	strcpy(tmpcol, coloredStr);
 
 	/* Free allocated memory */
 	free(coloredStr);
+	free(tmp);
 
 	/* Return the colored string */
 	return tmpcol;
