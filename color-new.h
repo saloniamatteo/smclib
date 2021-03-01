@@ -86,7 +86,9 @@ static char
 		tmpcol[i] = '\0';
 
 	/* Assign size to allocate to integer variable */
-	int malloc_size = sizeof(char) * strlen(string) * colorCount;
+	int malloc_size = sizeof(char) + strlen(string) + colorCount;
+
+	printf("Alloc size: %d\n\n", malloc_size);
 
 	/* Create temporary variable */
 	char *tmp = NULL;
