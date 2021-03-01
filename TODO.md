@@ -15,10 +15,28 @@ Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matte
 	main(int argc, char **argv)
 	{
 		printf("These strings will be colored: %s %s\n",
-		color("Hello, ", 2, bold, redBg),
-		color("World!", 2, bold, blueBg));
+			color("Hello,", 2, bold, redBg),
+			color("World!", 2, bold, blueBg));
 		return 0;
 	}
 	```
 	This will output the following:
 	`These strings will be colored: Hello,  Hello,`
+	
+	Workaround:
+	
+	```c
+	#include <stdio.h>
+		
+	#include "color-new.h"
+		
+	int
+	main(int argc, char **argv)
+	{
+		printf("These strings will be colored: %s ",
+			color("Hello,", 2, bold, redBg));
+		printf("%s\n",
+			color("World!", 2, bold, blueBg));
+		return 0;
+	}
+	```
