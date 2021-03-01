@@ -21,7 +21,7 @@ Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matte
 	}
 	```
 	This will output the following:
-	`These strings will be colored: Hello,  Hello,`
+	`These strings will be colored: Hello, Hello,`
 	
 	Workaround:
 	
@@ -40,3 +40,5 @@ Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matte
 		return 0;
 	}
 	```
+	This will output the following:
+	`These strings will be colored: Hello, World!`
