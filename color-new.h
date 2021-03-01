@@ -88,7 +88,11 @@ static char
 	/* Assign size to allocate to integer variable */
 	int malloc_size = sizeof(char) + strlen(string) + colorCount;
 
-	printf("Alloc size: %d\n\n", malloc_size);
+	/* Check if size to allocate isn't less than 1 */
+	if (malloc_size <= 0) {
+		fprintf(stderr, "Size to allocate is too small! Size: %d\n", malloc_size);
+		exit(1);
+	}
 
 	/* Create temporary variable */
 	char *tmp = NULL;
@@ -102,15 +106,20 @@ static char
 	memset(tmp, 0, malloc_size);
 	memset(tmpcol, 0, sizeof(tmpcol));
 
-	if (tmp == NULL || coloredStr == NULL)
-		exit(1);
+	/* Check if pointers are null */
+	if (tmp == NULL || coloredStr == NULL) {
+		fprintf(stderr, "Error: unable to allocate enough memory!\n");
+		exit(2);
+	}
 
 	/* Create variadic argument list */
 	va_list argl;
 
 	/* Make sure color count is not less than 1 */
-	if (colorCount <= 0)
-		exit(2);
+	if (colorCount <= 0) {
+		fprintf(stderr, "Error: please select at least 1 color!\n");
+		exit(3);
+	}
 
 	/* Initialize variadic argument list */
 	va_start(argl, colorCount);
