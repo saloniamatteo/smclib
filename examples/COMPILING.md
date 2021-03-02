@@ -3,8 +3,7 @@
 Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matteo.
 
 ### List containing Library names
-+ `color`: refers to the `color.h` Library (deprecated);
-+ `color-new`: refers to the `color-new.h` Library;
++ `color`: refers to the `color.h` Library;
 + `compiler`: refers to the `compiler.h` and `platform.h` Libraries
 + `platform`: same as `compiler`
 

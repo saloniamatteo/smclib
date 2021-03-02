@@ -13,7 +13,7 @@ CFLAGS = -Wall -D_POSIX_C_SOURCE=200809L
 # CSTD: which C revision to use
 CSTD = c99
 
-all: color color-new compiler platform
+all: color compiler platform
 
 # color
 color: color.o
@@ -21,13 +21,6 @@ color: color.o
 
 color.o: color.c ../color.h
 	$(CC) -c color.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
-
-# color-new
-color-new: color-new.o
-	$(CC) color-new.o -o color-new $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
-
-color-new.o: color-new.c ../color-new.h
-	$(CC) -c color-new.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 
 # compiler & platform
 platform: compiler

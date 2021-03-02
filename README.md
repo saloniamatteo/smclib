@@ -30,10 +30,7 @@ Where `[example]` is the name of a library.
 (See [this file](https://github.com/saloniamatteo/smclib/blob/master/examples/COMPILING.md) for more info)
 
 ### Included Libraries
-+ `color-new.h`: color a string (successor of `color.h`)
-	- Contains one function, `color`.
-
-+ `color.h`: color a string (deprecated!)
++ `color.h`: color a string
 	- Contains one function, `color`.
 
 + `compiler.h`: define used compiler
