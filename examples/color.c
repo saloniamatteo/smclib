@@ -33,6 +33,10 @@ main(int argc, char **argv)
 	printf("Interesting...Now the following will have a red background, and bold text!\n%s\n\n",
 		color("This is red!", 2, bold, redBg));
 
+	char *myString = color("Hello, World!", 4, rvideo, bold, bBlueFg, whiteBg);
+
+	printf("The color function is not just limited to just printf! You can also use it with variables: %s\n\n", myString);
+
 	printf("What about black text on white background? %s\n\n",
 		color("Here it is!", 2, whiteBg, blackFg));
 
