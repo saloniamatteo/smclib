@@ -46,8 +46,8 @@
 #define _POSIX_C_SOURCE 200809L
 
 /* Macros used by MSVC */
-#ifndef _PLATFORM_H
-#define _PLATFORM_H
+#ifndef _SMCLIB_PLATFORM_H
+#define _SMCLIB_PLATFORM_H
 
 /* Check Alpha */
 #ifdef _M_ALPHA
@@ -158,4 +158,4 @@
 #define ARCH "x86_64"
 #endif
 
-#endif /* _PLATFORM_H */
+#endif /* _SMCLIB_PLATFORM_H */

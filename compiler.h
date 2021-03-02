@@ -11,8 +11,8 @@
 
 #define _POSIX_C_SOURCE 200809L
 
-#ifndef _COMPILER_H
-#define _COMPILER_H
+#ifndef _SMCLIB_COMPILER_H
+#define _SMCLIB_COMPILER_H
 
 /* Check CLang */
 #ifdef __clang__
@@ -31,4 +31,4 @@
 #define CC "Unknown Compiler"
 #endif
 
-#endif /* _COMPILER_H */
+#endif /* _SMCLIB_COMPILER_H */

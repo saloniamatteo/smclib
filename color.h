@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef _COLOR_H
-#define _COLOR_H
+#ifndef _SMCLIB_COLOR_H
+#define _SMCLIB_COLOR_H
 
 #define max_color_str_size 300
 
@@ -85,7 +85,7 @@ enum fontEffects {
 char coloredStr[max_color_str_size];
 
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
-static char
+char
 *color(char *string, int colorCount, ...)
 {
 	/* Make sure color count is not less than 1 */
@@ -154,4 +154,4 @@ static char
 	return coloredStr;
 }
 
-#endif /* _COLOR_H */
+#endif /* _SMCLIB_COLOR_H */
