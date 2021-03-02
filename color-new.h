@@ -8,6 +8,11 @@
  * Made by Salonia Matteo <saloniamatteo@pm.me>
  * Part of SMCLib.
  *
+ * Exit values:
+ * 	1	malloc_size is <= 0
+ * 	2	Pointers are null
+ * 	3	colorCount is <= 0
+ *
  */
 
 #include <stdio.h>
@@ -77,20 +82,23 @@ enum fontEffects {
 static char *coloredStr = NULL;
 static char tmpcol[300] = {0};
 
-/* This function will color a text string using ASCII escape sequences */
+/* This function colors a text string using ASCII escape sequences; it returns a colored string */
 static char
 *color(char *string, int colorCount, ...)
 {
-	/* Zero-initialize the variable */
-	for (int i = 0; i < sizeof(tmpcol); i++)
-		tmpcol[i] = '\0';
+	/* Empty the temporary variable */
+	for (int i = 0; i <= sizeof(*tmpcol); i++)
+		tmpcol[i] = '0';
 
-	/* Assign size to allocate to integer variable */
-	int malloc_size = sizeof(char) + strlen(string) + colorCount;
+	/* Null-terminate the temporary variable */
+	((char *)tmpcol)[sizeof(*tmpcol)] = '\0';
+
+	/* Assign size to allocate to variable */
+	size_t malloc_size = sizeof(char*) * (strlen(string) + colorCount);
 
 	/* Check if size to allocate isn't less than 1 */
 	if (malloc_size <= 0) {
-		fprintf(stderr, "Size to allocate is too small! Size: %d\n", malloc_size);
+		fprintf(stderr, "Size to allocate is too small! Size: %ld\n", malloc_size);
 		exit(1);
 	}
 
@@ -98,13 +106,17 @@ static char
 	char *tmp = NULL;
 
 	/* Dynamically allocate variables */
-	tmp = (char*) calloc(colorCount, malloc_size);
-	coloredStr = (char*) calloc(colorCount, malloc_size);
+	tmp = (char*) calloc(1, malloc_size);
+	coloredStr = (char*) calloc(1, malloc_size);
 
 	/* Make sure variables are 0-ed */
 	memset(coloredStr, 0, malloc_size);
 	memset(tmp, 0, malloc_size);
-	memset(tmpcol, 0, sizeof(tmpcol));
+	memset(tmpcol, 0, sizeof(*tmpcol));
+
+	/* Make sure memory is nul terminated */
+	((char *)coloredStr)[sizeof(*coloredStr)] = '\0';
+	((char *)tmp)[sizeof(*tmp)] = '\0';
 
 	/* Check if pointers are null */
 	if (tmp == NULL || coloredStr == NULL) {
@@ -139,6 +151,10 @@ static char
 
 	/* Copy colored string from coloredStr to tmpcol */
 	strcpy(tmpcol, coloredStr);
+
+	/* Make sure memory is empty before freeing it */
+	strcpy(coloredStr, "\0");
+	strcpy(tmp, "\0");
 
 	/* Free allocated memory */
 	free(coloredStr);
