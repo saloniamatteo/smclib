@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "../color-new.h"
+#include "../color.h"
 
 #define _POSIX_C_SOURCE 200809L
 
