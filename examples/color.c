@@ -45,7 +45,7 @@ main(int argc, char **argv)
 	printf("%s\n\n", color("Regular white foreground on green...", 2, greenBg, whiteFg));
 
 	printf("%s\n", color("So...how do I make this work?\n", 1, italic));
-	printf("Using variadic functions, I can pass %s",
+	printf("Using variadic arguments, I can pass %s",
 		color("as ", 3, bold, redBg, italic));
 	printf("%s", color("many ", 3, bold, greenBg, underline));
 	printf("%s as I want to the function!\n\n",
