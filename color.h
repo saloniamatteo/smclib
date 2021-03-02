@@ -87,11 +87,11 @@ static char
 *color(char *string, int colorCount, ...)
 {
 	/* Empty the variable that will contain the colored string */
-	for (int i = 0; i <= sizeof(coloredStr); i++)
+	for (int i = 0; i <= (sizeof(coloredStr) - 1); i++)
 		coloredStr[i] = ' ';
 
 	/* Null-terminate the variable that will contain the colored string */
-	((char *)coloredStr)[sizeof(coloredStr)] = '\0';
+	((char *)coloredStr)[sizeof(coloredStr)-1] = '\0';
 
 	/* Assign size to allocate to variable */
 	size_t malloc_size = sizeof(char *) * (strlen(string) + colorCount);
