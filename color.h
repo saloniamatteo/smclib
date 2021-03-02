@@ -80,18 +80,18 @@ enum fontEffects {
 } fontEffects;
 
 /* This variable will hold the colored string */
-static char coloredStr[300] = {0};
+char coloredStr[300];
 
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
 static char
 *color(char *string, int colorCount, ...)
 {
 	/* Empty the variable that will contain the colored string */
-	for (int i = 0; i <= sizeof(*coloredStr); i++)
+	for (int i = 0; i <= sizeof(coloredStr); i++)
 		coloredStr[i] = ' ';
 
 	/* Null-terminate the variable that will contain the colored string */
-	((char *)coloredStr)[sizeof(*coloredStr)] = '\0';
+	((char *)coloredStr)[sizeof(coloredStr)] = '\0';
 
 	/* Assign size to allocate to variable */
 	size_t malloc_size = sizeof(char *) * (strlen(string) + colorCount);
@@ -108,18 +108,18 @@ static char
 	/* Dynamically allocate variable */
 	tmp = (char*) calloc(1, malloc_size);
 
-	/* Make sure variables are 0-ed */
-	memset(tmp, 0, malloc_size);
-	memset(coloredStr, 0, sizeof(*coloredStr));
-
-	/* Make sure memory is nul terminated */
-	((char *)tmp)[sizeof(*tmp)] = '\0';
-
 	/* Check if pointer is null */
 	if (tmp == NULL) {
 		fprintf(stderr, "Error: unable to allocate enough memory!\n");
 		exit(2);
 	}
+
+	/* Make sure variables are 0-ed */
+	memset(tmp, 0, malloc_size);
+	memset(coloredStr, 0, sizeof(coloredStr));
+
+	/* Make sure memory is nul terminated */
+	((char *)tmp)[sizeof(*tmp)] = '\0';
 
 	/* Create variadic argument list */
 	va_list argl;
@@ -134,7 +134,6 @@ static char
 	va_start(argl, colorCount);
 
 	/* Append every given color to tmp, prepending the ASCII escape sequence "\e[COLORm" */
-	/* TODO: I think the issue lies here, where the strings become the same (see https://github.com/saloniamatteo/smclib/blob/master/TODO.md) */
 	for (int i = 0; i < colorCount; i++) {
 		sprintf(tmp, "\e[%dm", va_arg(argl, int));
 		strcat(coloredStr, tmp);
