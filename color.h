@@ -9,9 +9,9 @@
  * Part of SMCLib.
  *
  * Exit values:
- * 	1	malloc_size is <= 0
- * 	2	Pointers are null
- * 	3	colorCount is <= 0
+ * 	1	colorCount is <= 0
+ * 	2	malloc_size is <= 0
+ * 	3	Pointer is null
  *
  */
 
@@ -22,6 +22,7 @@
 
 #ifndef _COLOR_H
 #define _COLOR_H
+#define max_color_str_size 300
 
 /* This enum contains escape sequence values */
 enum fontEffects {
@@ -80,60 +81,55 @@ enum fontEffects {
 } fontEffects;
 
 /* This variable will hold the colored string */
-char coloredStr[300];
+char coloredStr[max_color_str_size];
 
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
 static char
 *color(char *string, int colorCount, ...)
 {
-	/* Empty the variable that will contain the colored string */
-	for (int i = 0; i <= (sizeof(coloredStr) - 1); i++)
-		coloredStr[i] = ' ';
-
-	/* Null-terminate the variable that will contain the colored string */
-	((char *)coloredStr)[sizeof(coloredStr)-1] = '\0';
-
-	/* Assign size to allocate to variable */
-	size_t malloc_size = sizeof(char *) * (strlen(string) + colorCount);
-
-	/* Check if size to allocate isn't less than 1 */
-	if (malloc_size <= 0) {
-		fprintf(stderr, "Size to allocate is too small! Size: %ld\n", malloc_size);
+	/* Make sure color count is not less than 1 */
+	if (colorCount <= 0) {
+		fprintf(stderr, "Error: please select at least 1 color!\n");
 		exit(1);
 	}
 
 	/* Create temporary variable */
 	char *tmp = NULL;
 
-	/* Dynamically allocate variable */
+	/* This variable will contain how much memory to allocate */
+	size_t malloc_size = sizeof(char *) * (strlen(string) + colorCount);
+
+	/* Variadic argument list */
+	va_list argl;
+
+	/* Check if size to allocate isn't smaller than the string + colorCount */
+	if (malloc_size <= (strlen(string) + colorCount)) {
+		fprintf(stderr, "Size to allocate is too small! Size: %ld\n", malloc_size);
+		exit(2);
+	}
+
+	/* Dynamically allocate temporary variable */
 	tmp = (char*) calloc(1, malloc_size);
 
 	/* Check if pointer is null */
 	if (tmp == NULL) {
 		fprintf(stderr, "Error: unable to allocate enough memory!\n");
-		exit(2);
+		exit(3);
 	}
 
-	/* Make sure variables are 0-ed */
+	/* Empty variables */
 	memset(tmp, 0, malloc_size);
 	memset(coloredStr, 0, sizeof(coloredStr));
 
-	/* Make sure memory is nul terminated */
+	/* Null-terminate variables */
 	((char *)tmp)[sizeof(*tmp)] = '\0';
-
-	/* Create variadic argument list */
-	va_list argl;
-
-	/* Make sure color count is not less than 1 */
-	if (colorCount <= 0) {
-		fprintf(stderr, "Error: please select at least 1 color!\n");
-		exit(3);
-	}
+	((char *)coloredStr)[sizeof(coloredStr) - 1] = '\0';
 
 	/* Initialize variadic argument list */
 	va_start(argl, colorCount);
 
-	/* Append every given color to tmp, prepending the ASCII escape sequence "\e[COLORm" */
+	/* Append every given color to coloredStr, prepending the ASCII escape sequence "\e[COLORm"
+	 * string will look like this: \e[COLOR1m\e[COLOR2m... */
 	for (int i = 0; i < colorCount; i++) {
 		sprintf(tmp, "\e[%dm", va_arg(argl, int));
 		strcat(coloredStr, tmp);
@@ -142,14 +138,15 @@ static char
 	/* We don't need the variadic arguments list anymore */
 	va_end(argl);
 
-	/* Put the wanted string in tmp, resetting the color, copying it in coloredStr */
+	/* Put the wanted string in tmp, resetting the color, copying it in coloredStr
+	 * string will look like this: \e[COLOR1m\e[COLOR2m...STRING\e[RESETm */
 	sprintf(tmp, "%s\e[%dm", string, reset);
 	strcat(coloredStr, tmp);
 
-	/* Make sure memory is empty before freeing it */
+	/* Make sure tmp is empty before destroying it */
 	memset(tmp, 0, malloc_size);
 
-	/* Free allocated memory */
+	/* Destroy temporary variable */
 	free(tmp);
 
 	/* Return the colored string */
