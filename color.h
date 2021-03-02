@@ -79,22 +79,22 @@ enum fontEffects {
 	bWhiteBg = 107
 } fontEffects;
 
-static char *coloredStr = NULL;
-static char tmpcol[300] = {0};
+/* This variable will hold the colored string */
+static char coloredStr[300] = {0};
 
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
 static char
 *color(char *string, int colorCount, ...)
 {
-	/* Empty the temporary variable */
-	for (int i = 0; i <= sizeof(*tmpcol); i++)
-		tmpcol[i] = '0';
+	/* Empty the variable that will contain the colored string */
+	for (int i = 0; i <= sizeof(*coloredStr); i++)
+		coloredStr[i] = ' ';
 
-	/* Null-terminate the temporary variable */
-	((char *)tmpcol)[sizeof(*tmpcol)] = '\0';
+	/* Null-terminate the variable that will contain the colored string */
+	((char *)coloredStr)[sizeof(*coloredStr)] = '\0';
 
 	/* Assign size to allocate to variable */
-	size_t malloc_size = sizeof(char*) * (strlen(string) + colorCount);
+	size_t malloc_size = sizeof(char *) * (strlen(string) + colorCount);
 
 	/* Check if size to allocate isn't less than 1 */
 	if (malloc_size <= 0) {
@@ -105,21 +105,18 @@ static char
 	/* Create temporary variable */
 	char *tmp = NULL;
 
-	/* Dynamically allocate variables */
+	/* Dynamically allocate variable */
 	tmp = (char*) calloc(1, malloc_size);
-	coloredStr = (char*) calloc(1, malloc_size);
 
 	/* Make sure variables are 0-ed */
-	memset(coloredStr, 0, malloc_size);
 	memset(tmp, 0, malloc_size);
-	memset(tmpcol, 0, sizeof(*tmpcol));
+	memset(coloredStr, 0, sizeof(*coloredStr));
 
 	/* Make sure memory is nul terminated */
-	((char *)coloredStr)[sizeof(*coloredStr)] = '\0';
 	((char *)tmp)[sizeof(*tmp)] = '\0';
 
-	/* Check if pointers are null */
-	if (tmp == NULL || coloredStr == NULL) {
+	/* Check if pointer is null */
+	if (tmp == NULL) {
 		fprintf(stderr, "Error: unable to allocate enough memory!\n");
 		exit(2);
 	}
@@ -137,7 +134,8 @@ static char
 	va_start(argl, colorCount);
 
 	/* Append every given color to tmp, prepending the ASCII escape sequence "\e[COLORm" */
-	for (int i = 1; i <= colorCount; i++) {
+	/* TODO: I think the issue lies here, where the strings become the same (see https://github.com/saloniamatteo/smclib/blob/master/TODO.md) */
+	for (int i = 0; i < colorCount; i++) {
 		sprintf(tmp, "\e[%dm", va_arg(argl, int));
 		strcat(coloredStr, tmp);
 	}
@@ -149,19 +147,14 @@ static char
 	sprintf(tmp, "%s\e[%dm", string, reset);
 	strcat(coloredStr, tmp);
 
-	/* Copy colored string from coloredStr to tmpcol */
-	strcpy(tmpcol, coloredStr);
-
 	/* Make sure memory is empty before freeing it */
-	strcpy(coloredStr, "\0");
-	strcpy(tmp, "\0");
+	memset(tmp, 0, malloc_size);
 
 	/* Free allocated memory */
-	free(coloredStr);
 	free(tmp);
 
 	/* Return the colored string */
-	return tmpcol;
+	return coloredStr;
 }
 
 #endif /* _COLOR_H */
