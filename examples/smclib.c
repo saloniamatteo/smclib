@@ -39,9 +39,9 @@ main(int argc, char **argv)
 	printf("Enter a string to color: ");
 	fgets(string, sizeof(string), stdin);
 
-	/* Check if string is not empty */
-	if (string[0] == ' ' && string[1] == ' ') {
-		fprintf(stderr, "Enter a valid string!");
+	/* Check if string is empty */
+	if (string[0] == ' ' || string[0] == '\0' || string[1] == ' ' || string[1] == '\0') {
+		fprintf(stderr, "Enter a valid string!\n");
 		exit(1);
 	}
 
