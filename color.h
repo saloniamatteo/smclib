@@ -15,14 +15,15 @@
  *
  */
 
+#ifndef _COLOR_H
+#define _COLOR_H
+
+#define max_color_str_size 300
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
-
-#ifndef _COLOR_H
-#define _COLOR_H
-#define max_color_str_size 300
 
 /* This enum contains escape sequence values */
 enum fontEffects {

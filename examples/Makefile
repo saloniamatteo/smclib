@@ -13,7 +13,14 @@ CFLAGS = -Wall -D_POSIX_C_SOURCE=200809L
 # CSTD: which C revision to use
 CSTD = c99
 
-all: color compiler platform
+all: smclib
+
+# smclib
+smclib: color compiler platform smclib.o
+	$(CC) smclib.o -o smclib $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+
+smclib.o: smclib.c ../smclib.h
+	$(CC) -c smclib.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 
 # color
 color: color.o
@@ -32,6 +39,6 @@ compiler.o: compiler.c ../compiler.h ../platform.h
 	$(CC) -c compiler.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 
 clean:
-	rm -f *.o color compiler
+	rm -f *.o color compiler smclib
 
-.PHONY: all clean color compiler platform
+.PHONY: all smclib clean color compiler platform

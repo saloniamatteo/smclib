@@ -1,4 +1,4 @@
-## SMCLib
+[##](##) SMCLib
 
 Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matteo.
 
@@ -8,8 +8,9 @@ To see a list of examples, open the [`examples`](https://github.com/saloniamatte
 All of the function headers (and examples) use `_POSIX_C_SOURCE` `200809L`.
 
 ### Using a Library
-Simply `#include "library.h"` in your C source code, making sure you have a copy of `library.h` in your current directory.
-(NOTE: Obviously, `library.h` refers to a Library in this repository)
+Just `#include "smclib.h"` in your C source code, making sure you have a copy of `smclib.h` in your current directory,
+as well as the other libraries. If you specifically need to include just one library, just `#include "color.h"`
+(here `color.h` is being used as an example, you can choose any other library)
 
 ### Compiling Examples
 For every Library, at least one Example file is included.
@@ -30,11 +31,14 @@ Where `[example]` is the name of a library.
 (See [this file](https://github.com/saloniamatteo/smclib/blob/master/examples/COMPILING.md) for more info)
 
 ### Included Libraries
-+ `color.h`: color a string
++ `smclib.h`: The SMCLib Meta-Library.
+	- Defines variable (float) `_smclib_ver`, which contains this Library's version.
+
++ `color.h`: Color a string.
 	- Contains one function, `color`.
 
-+ `compiler.h`: define used compiler
-	- defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`)
++ `compiler.h`: Define Compiler used.
+	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`)..
 
-+ `platform.h`: define target architecture
-	- defines `ARCH`, which will contain the name of the target architecture
++ `platform.h`: Define Target Architecture
+	- Defines `ARCH`, which will contain the name of the target architecture.
