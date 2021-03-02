@@ -38,7 +38,7 @@ Where `[example]` is the name of a library.
 	- Contains one function, `color`.
 
 + `compiler.h`: Define Compiler used.
-	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`)..
+	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`).
 
 + `platform.h`: Define Target Architecture
 	- Defines `ARCH`, which will contain the name of the target architecture.
