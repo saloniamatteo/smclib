@@ -98,7 +98,7 @@ color(char *string, int colorCount, ...)
 		tmp[i] = 0;
 
 	/* This variable will contain how much memory to allocate */
-	size_t malloc_size = sizeof(char *) + strlen(string) + colorCount;
+	size_t malloc_size = sizeof(char *) + strlen(string) + colorCount + 1;
 
 	/* Variadic argument list */
 	va_list argl;
