@@ -6,7 +6,7 @@ OPTS = -Ofast
 ARCH = native
 TUNE = native
 # CFLAGS: additional compiler flags
-CFLAGS = -Wall -D_POSIX_C_SOURCE=200809L
+CFLAGS = -Wall -Wextra -D_POSIX_C_SOURCE=200809L
 # LINKER: choose a linker to use; can be bfd, gold, lld
 # comment to use the default linker, uncomment to use a custom linker
 #LINKER = -fuse-ld=gold
@@ -15,7 +15,7 @@ CSTD = c99
 
 all: smclib
 
-# smclib
+# smclib (all examples)
 smclib: color compiler platform smclib.o
 	$(CC) smclib.o -o smclib $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
 

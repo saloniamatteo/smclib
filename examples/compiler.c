@@ -16,7 +16,7 @@
 #define _POSIX_C_SOURCE 200809L
 
 int
-main(int argc, char *argv[])
+main(void)
 {
 
 	printf("This program was compiled on %s at %s.\n", __DATE__, __TIME__);

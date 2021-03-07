@@ -17,7 +17,7 @@
 #include "../smclib.h"
 
 int
-main(int argc, char **argv)
+main(void)
 {
 	/* This variable will hold SMCLib's version */
 	char smclib_ver[sizeof(_smclib_ver)];

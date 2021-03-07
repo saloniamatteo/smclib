@@ -18,6 +18,8 @@
 /* SMCLib version */
 static const float _smclib_ver = 1.0;
 
+/* Function declarations */
+
 /* color.h */
 char *color(char *string, int colorCount, ...);
 

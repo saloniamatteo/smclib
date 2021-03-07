@@ -18,12 +18,10 @@
 #ifndef _SMCLIB_COLOR_H
 #define _SMCLIB_COLOR_H
 
-#define max_color_str_size 300
-
-#include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* This enum contains escape sequence values */
 enum fontEffects {
@@ -81,12 +79,9 @@ enum fontEffects {
 	bWhiteBg = 107
 } fontEffects;
 
-/* This variable will hold the colored string */
-char coloredStr[max_color_str_size];
-
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
-char
-*color(char *string, int colorCount, ...)
+char *
+color(char *string, int colorCount, ...)
 {
 	/* Make sure color count is not less than 1 */
 	if (colorCount <= 0) {
@@ -94,8 +89,13 @@ char
 		exit(1);
 	}
 
-	/* Create temporary variable */
-	char *tmp = NULL;
+	/* Create necessary variables */
+	char *coloredStr = NULL;
+	char tmp[300];
+
+	/* Clear temporary variable */
+	for (int i = 0; i < (int)sizeof(tmp); i++)
+		tmp[i] = 0;
 
 	/* This variable will contain how much memory to allocate */
 	size_t malloc_size = sizeof(char *) + strlen(string) + colorCount;
@@ -109,46 +109,50 @@ char
 		exit(2);
 	}
 
-	/* Dynamically allocate temporary variable */
-	tmp = (char*) calloc(1, malloc_size);
+	/* Dynamically allocate variable */
+	coloredStr = (char*) calloc(1, malloc_size);
 
 	/* Check if pointer is null */
-	if (tmp == NULL) {
+	if (coloredStr == NULL) {
 		fprintf(stderr, "Error: unable to allocate enough memory!\n");
 		exit(3);
 	}
 
-	/* Empty variables */
-	memset(tmp, 0, malloc_size);
-	memset(coloredStr, 0, sizeof(coloredStr));
-
-	/* Null-terminate variables */
-	((char *)tmp)[sizeof(*tmp)] = '\0';
-	((char *)coloredStr)[sizeof(coloredStr) - 1] = '\0';
-
 	/* Initialize variadic argument list */
 	va_start(argl, colorCount);
 
-	/* Append every given color to coloredStr, prepending the ASCII escape sequence "\e[COLORm"
-	 * string will look like this: \e[COLOR1m\e[COLOR2m... */
+	/* Prepend "\e[" to coloredStr */
+	sprintf(tmp, "\e[");
+	strcpy(coloredStr, tmp);
+
+	/* Append every color to coloredStr, prepending "\e[";
+	The colored string will look like this:
+	\e[COLOR1;COLOR2..mSTRING\e[RESETm" */
 	for (int i = 0; i < colorCount; i++) {
-		sprintf(tmp, "\e[%dm", va_arg(argl, int));
+		sprintf(tmp, "%d", va_arg(argl, int));
+		/* Append ";" to concatenate colors */
+		if (i < (colorCount - 1))
+			strcat(tmp, ";");
+		/* Append "m" to signal the end of the ASCII color sequence */
+		else
+			strcat(tmp, "m");
 		strcat(coloredStr, tmp);
 	}
+
+	/* Append "m" to signal the end of the ASCII color sequence */
+	strcat(tmp, "m");
 
 	/* We don't need the variadic arguments list anymore */
 	va_end(argl);
 
 	/* Put the wanted string in tmp, resetting the color, copying it in coloredStr
-	 * string will look like this: \e[COLOR1m\e[COLOR2m...STRING\e[RESETm */
+	string will look like this: \e[COLOR1;COLOR2m..STRING\e[RESETm */
 	sprintf(tmp, "%s\e[%dm", string, reset);
 	strcat(coloredStr, tmp);
 
-	/* Make sure tmp is empty before destroying it */
-	memset(tmp, 0, malloc_size);
-
-	/* Destroy temporary variable */
-	free(tmp);
+	/* FIXME: not freeing "coloredStr" causes a memory leak,
+	and freeing it before returning it returns random values from memory */
+	//free(coloredStr);
 
 	/* Return the colored string */
 	return coloredStr;
