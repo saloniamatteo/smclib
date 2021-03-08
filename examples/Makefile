@@ -16,27 +16,33 @@ CSTD = c99
 all: smclib
 
 # smclib (all examples)
-smclib: color compiler platform smclib.o
-	$(CC) smclib.o -o smclib $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+smclib: smclib.o color compiler
+	@$(CC) smclib.o -o smclib $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 smclib.o: smclib.c ../smclib.h
-	$(CC) -c smclib.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@$(CC) -c smclib.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 # color
 color: color.o
-	$(CC) color.o -o color $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@$(CC) color.o -o color $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 color.o: color.c ../color.h
-	$(CC) -c color.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@$(CC) -c color.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 # compiler & platform
 platform: compiler
 
 compiler: compiler.o
-	$(CC) compiler.o -o compiler $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@$(CC) compiler.o -o compiler $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 compiler.o: compiler.c ../compiler.h ../platform.h
-	$(CC) -c compiler.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@$(CC) -c compiler.c $(CFLAGS) $(OPTS) $(LINKER) -march=$(ARCH) -mtune=$(TUNE) -std=$(CSTD)
+	@echo "CC $<"
 
 clean:
 	rm -f *.o color compiler smclib
