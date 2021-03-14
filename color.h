@@ -79,6 +79,24 @@ enum fontEffects {
 	bWhiteBg = 107
 } fontEffects;
 
+char *coloredStr = NULL;
+
+/* Free previously allocated memory */
+int
+_free_color(void)
+{
+	coloredStr = (char *) realloc(coloredStr, 1);
+	memset(coloredStr, 0, 1);
+	free(coloredStr);
+
+	coloredStr = NULL;
+
+	if (coloredStr != NULL)
+		return 1;
+	else
+		return 0;
+}
+
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
 char *
 color(char *string, int colorCount, ...)
@@ -90,12 +108,10 @@ color(char *string, int colorCount, ...)
 	}
 
 	/* Create necessary variables */
-	char *coloredStr = NULL;
 	char tmp[300];
 
 	/* Clear temporary variable */
-	for (int i = 0; i < (int)sizeof(tmp); i++)
-		tmp[i] = 0;
+	memset(&tmp, 0, sizeof(tmp));
 
 	/* This variable will contain how much memory to allocate */
 	size_t malloc_size = sizeof(char *) + strlen(string) + colorCount + 1;
@@ -153,6 +169,9 @@ color(char *string, int colorCount, ...)
 	/* FIXME: not freeing "coloredStr" causes a memory leak,
 	and freeing it before returning it returns random values from memory */
 	//free(coloredStr);
+
+	/* Clear temporary variable */
+	memset(&tmp, 0, sizeof(tmp));
 
 	/* Return the colored string */
 	return coloredStr;

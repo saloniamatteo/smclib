@@ -1,7 +1,9 @@
 /* See LICENSE file for copyright and license details.
  *
  * This Library checks the platform used to compile the program,
- * defining the "ARCH" variable at pre-processing time.
+ * defining the "ARCH" variable at pre-processing time,
+ * as well as ARCH_x86 = x86, if ARCH is x86 or x86_64,
+ * and ARCH_ARM = ARM, if ARCH is under the ARM family.
  *
  * Made by Salonia Matteo <saloniamatteo@pm.me>
  * Part of SMCLib.
@@ -56,10 +58,12 @@
 /* Check ARM */
 #elif defined _M_ARM
 #define ARCH "ARM"
+#define ARCH_ARM ARM
 
 /* Check ARMv7 */
 #elif defined _M_ARM_ARMV7VE
 #define ARCH "ARMv7"
+#define ARCH_ARM ARM
 
 /* Check PowerPC */
 #elif defined _M_PPC
@@ -68,11 +72,13 @@
 /* Check x86 */
 #elif defined _M_X86
 #define ARCH "x86"
+#define ARCH_x86 x86
 
 /* Check x86_64 */
 #elif defined _M_AMD64
 #define ARCH "x86_64"
-#endif /* _PLATFORM_H */
+#define ARCH_x86 x86
+#endif
 
 /* Macros used by GCC, CLang, etc. */
 /* Check Alpha */
@@ -83,42 +89,52 @@
 /* Check ARM */
 #elif defined __arm__
 #define ARCH "ARM"
+#define ARCH_ARM ARM
 
 /* Check ARM64 */
 #elif defined __ARM_ARCH_ISA_A64
 #define ARCH "ARM64"
+#define ARCH_ARM ARM
 
 /* Check ARMv2 */
 #elif defined __ARM_ARCH_2__
 #define ARCH "ARMv2"
+#define ARCH_ARM ARM
 
 /* Check ARMv3 */
 #elif defined __ARM_ARCH_3__
 #define ARCH "ARMv3"
+#define ARCH_ARM ARM
 
 /* Check ARMv4 */
 #elif defined __ARM_ARCH_4T__
 #define ARCH "ARMv4T"
+#define ARCH_ARM ARM
 
 /* Check ARMv5 */
 #elif defined __ARM_ARCH_5__
 #define ARCH "ARMv5"
+#define ARCH_ARM ARM
 
 /* Check ARMv6 */
 #elif defined __ARM_ARCH_6__
 #define ARCH "ARMv6"
+#define ARCH_ARM ARM
 
 /* Check ARMv6T */
 #elif defined __ARM_ARCH_6T2__
 #define ARCH "ARMv6T2"
+#define ARCH_ARM ARM
 
 /* Check ARMv7 */
 #elif defined __ARM_ARCH_7A__
 #define ARCH "ARMv7"
+#define ARCH_ARM ARM
 
 /* Check ARMv7s */
 #elif defined __ARM_ARCH_7S__
 #define ARCH "ARMv7s"
+#define ARCH_ARM ARM
 /*-- END ARM --*/
 
 /* Check HP/PA RISC */
@@ -152,10 +168,12 @@
 /* Check x86 */
 #elif defined __ILP32__
 #define ARCH "x86"
+#define ARCH_x86 x86
 
 /* Check x86_64 */
 #elif defined __x86_64
 #define ARCH "x86_64"
+#define ARCH_x86 x86
 #endif
 
 #endif /* _SMCLIB_PLATFORM_H */
