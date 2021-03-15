@@ -47,10 +47,19 @@
 
 #define _POSIX_C_SOURCE 200809L
 
-/* Macros used by MSVC */
 #ifndef _SMCLIB_PLATFORM_H
 #define _SMCLIB_PLATFORM_H
 
+/* Firstly, check if using Windows, or UNIX */
+#if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__)
+#define OS "Win32"
+#elif defined(__unix__)
+#define OS "Unix"
+#else
+#define OS "Unknown"
+#endif
+
+/* Macros used by MSVC */
 /* Check Alpha */
 #ifdef _M_ALPHA
 #define ARCH "Alpha"

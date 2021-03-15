@@ -31,6 +31,7 @@ main(void)
 	/* Print Compiler and Target Architecture, using CC and ARCH */
 	printf("Compiler used to compile this program: %s\n", color(CC, 2, redBg, bold));
 	printf("Target Architecture: %s\n\n", color(ARCH, 2, greenBg, bold));
+	printf("Operating System: %s\n\n", color(OS, 2, underline, bold));
 
 	/* Create variable that will hold the user's string */
 	char string[100];
