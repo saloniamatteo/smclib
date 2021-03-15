@@ -16,6 +16,14 @@
 
 #include "../smclib.h"
 
+#ifdef OS_WIN32
+#define OS "Win32"
+#elif defined OS_UNIX
+#define OS "Unix"
+#elif defined OS_UNK
+#define OS "Unknown"
+#endif
+
 int
 main(void)
 {

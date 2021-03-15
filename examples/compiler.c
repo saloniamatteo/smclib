@@ -15,6 +15,14 @@
 
 #define _POSIX_C_SOURCE 200809L
 
+#ifdef OS_WIN32
+#define OS "Win32"
+#elif defined OS_UNIX
+#define OS "Unix"
+#elif defined OS_UNK
+#define OS "Unknown"
+#endif
+
 int
 main(void)
 {

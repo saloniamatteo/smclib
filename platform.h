@@ -5,6 +5,12 @@
  * as well as ARCH_x86 = x86, if ARCH is x86 or x86_64,
  * and ARCH_ARM = ARM, if ARCH is under the ARM family.
  *
+ * Additionally, 3 more variables are defined, with the
+ * following conditions:
+ * 	- OS_WIN32: OS is Windows
+ * 	- OS_UNIX: OS is Unix/Unix-like
+ * 	- OS_UNK: OS is Unknown
+ *
  * Made by Salonia Matteo <saloniamatteo@pm.me>
  * Part of SMCLib.
  *
@@ -52,11 +58,11 @@
 
 /* Firstly, check if using Windows, or UNIX */
 #if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__)
-#define OS "Win32"
+#define OS_WIN32 WIN32
 #elif defined(__unix__)
-#define OS "Unix"
+#define OS_UNIX UNIX
 #else
-#define OS "Unknown"
+#define OS_UNK UNKNOWN
 #endif
 
 /* Macros used by MSVC */
