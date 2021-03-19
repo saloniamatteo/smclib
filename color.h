@@ -43,46 +43,46 @@ enum fontEffects {
 	/* Foregrounds */
 	/* NOTE: those starting with "b" are bright colors */
 	blackFg = 30,
-	redFg = 31, 
-	greenFg = 32, 
-	yellowFg = 33, 
-	blueFg = 34, 
-	magentaFg = 35, 
-	cyanFg = 36, 
-	bBlackFg = 90, 
-	bRedFg = 91, 
-	bGreenFg = 92, 
-	bYellowFg = 93, 
-	bBlueFg = 94, 
-	bMagentaFg = 95, 
-	bCyanFg = 96, 
-	bWhiteFg = 97, 
+	redFg = 31,
+	greenFg = 32,
+	yellowFg = 33,
+	blueFg = 34,
+	magentaFg = 35,
+	cyanFg = 36,
+	bBlackFg = 90,
+	bRedFg = 91,
+	bGreenFg = 92,
+	bYellowFg = 93,
+	bBlueFg = 94,
+	bMagentaFg = 95,
+	bCyanFg = 96,
+	bWhiteFg = 97,
 
 	/* Backgrounds */
 	/* NOTE: those starting with "b" are bright colors */
-	whiteFg = 37, 
-	blackBg = 40, 
-	redBg = 41, 
-	greenBg = 42, 
-	yellowBg = 43, 
-	blueBg = 44, 
-	magentaBg = 45, 
-	cyanBg = 46, 
-	whiteBg = 47, 
-	bBlackBg = 100, 
-	bRedBg = 101, 
-	bGreenBg = 102, 
-	bYellowBg = 103, 
-	bBlueBg = 104, 
-	bMagentaBg = 105, 
-	bCyanBg = 106, 
+	whiteFg = 37,
+	blackBg = 40,
+	redBg = 41,
+	greenBg = 42,
+	yellowBg = 43,
+	blueBg = 44,
+	magentaBg = 45,
+	cyanBg = 46,
+	whiteBg = 47,
+	bBlackBg = 100,
+	bRedBg = 101,
+	bGreenBg = 102,
+	bYellowBg = 103,
+	bBlueBg = 104,
+	bMagentaBg = 105,
+	bCyanBg = 106,
 	bWhiteBg = 107
-} fontEffects;
+} static fontEffects;
 
-char *coloredStr = NULL;
+static char *coloredStr = NULL;
 
 /* Free previously allocated memory */
-int
+static int
 _free_color(void)
 {
 	coloredStr = (char *) realloc(coloredStr, 1);
@@ -98,7 +98,7 @@ _free_color(void)
 }
 
 /* This function colors a text string using ASCII escape sequences; it returns a colored string */
-char *
+static char *
 color(char *string, int colorCount, ...)
 {
 	/* Make sure color count is not less than 1 */
@@ -178,3 +178,4 @@ color(char *string, int colorCount, ...)
 }
 
 #endif /* _SMCLIB_COLOR_H */
+
