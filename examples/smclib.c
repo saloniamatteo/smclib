@@ -60,5 +60,9 @@ main(void)
 	/* Print string */
 	printf("Colored string: %s", string);
 
+	/* Try to reduce memory leaks; try to free coloredStr */
+	_free_color();
+
 	return 0;
 }
+

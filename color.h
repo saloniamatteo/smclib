@@ -77,7 +77,7 @@ enum fontEffects {
 	bMagentaBg = 105,
 	bCyanBg = 106,
 	bWhiteBg = 107
-} static fontEffects;
+};
 
 static char *coloredStr = NULL;
 

@@ -64,5 +64,9 @@ Output: %s\n\n", color("Some string...", 1, bold));
 giving it a White Foreground, and Blue Background.\nOutput:\n%s\n",
 		color("My text!", 3, bold, blueBg, whiteFg));
 
+	/* Try to reduce memory leaks; try to free coloredStr */
+	_free_color();
+
 	return 0;
 }
+
