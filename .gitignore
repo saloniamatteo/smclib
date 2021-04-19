@@ -4,3 +4,5 @@ tags
 examples/color
 examples/compiler
 examples/smclib
+examples/cscope.*
+examples/tags

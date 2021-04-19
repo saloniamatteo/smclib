@@ -32,10 +32,11 @@ Where `[example]` is the name of a library.
 
 ### Included Libraries
 + `smclib.h`: The SMCLib Meta-Library.
-	- Defines variable (float) `_smclib_ver`, which contains this Library's version.
+	- Defines variable (float) `_smclib_ver`, which contains this Library's version;
+	Also contains function prototypes.
 
 + `color.h`: Color a string.
-	- Contains one function, `color`.
+	- Contains two functions, `color`, and `_free_color`, which frees allocated memory.
 
 + `compiler.h`: Define Compiler used.
 	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`).

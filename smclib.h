@@ -9,18 +9,19 @@
  */
 
 #ifndef __SMCLIB__
-#define __SMCLIB__ 1
+#define __SMCLIB__
 
 #include "color.h"
 #include "compiler.h"
 #include "platform.h"
 
 /* SMCLib version */
-static const float _smclib_ver = 1.3;
+static const float _smclib_ver = 1.4;
 
-/* Function declarations */
+/* Function prototypes */
 
 /* color.h */
-char *color(char *string, int colorCount, ...);
+extern char *color(char *, int, ...);
+extern int _free_color(void);
 
 #endif /* __SMCLIB__ */

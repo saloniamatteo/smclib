@@ -36,10 +36,16 @@ main(void)
 	/* Print SMCLib's version, applying a cyan color to the foreground, making it bold */
 	printf("Using SMCLib version %s\n\n", color(smclib_ver, 2, cyanFg, bold));
 
+	/* Try to reduce memory leaks; try to free coloredStr */
+	_free_color();
+
 	/* Print Compiler and Target Architecture, using CC and ARCH */
 	printf("Compiler used to compile this program: %s\n", color(CC, 2, redBg, bold));
+	_free_color();
 	printf("Target Architecture: %s\n\n", color(ARCH, 2, greenBg, bold));
+	_free_color();
 	printf("Operating System: %s\n\n", color(OS, 2, underline, bold));
+	_free_color();
 
 	/* Create variable that will hold the user's string */
 	char string[100];

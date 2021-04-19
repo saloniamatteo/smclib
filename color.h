@@ -79,7 +79,12 @@ enum fontEffects {
 	bWhiteBg = 107
 };
 
+/* This global variable holds the colored string */
 static char *coloredStr = NULL;
+
+/* Function prototypes */
+static int _free_color(void);
+static char *color(char *, int, ...);
 
 /* Free previously allocated memory */
 static int
@@ -165,10 +170,6 @@ color(char *string, int colorCount, ...)
 	string will look like this: \e[COLOR1;COLOR2m..STRING\e[RESETm */
 	sprintf(tmp, "%s\e[%dm", string, reset);
 	strcat(coloredStr, tmp);
-
-	/* FIXME: not freeing "coloredStr" causes a memory leak,
-	and freeing it before returning it returns random values from memory */
-	//free(coloredStr);
 
 	/* Clear temporary variable */
 	memset(&tmp, 0, sizeof(tmp));
