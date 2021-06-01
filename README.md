@@ -54,7 +54,8 @@ main(void)
 	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`).
 
 + `platform.h`: Define Target Architecture
-	- Defines `ARCH`, which will contain the name of the target architecture.
+	- Defines `ARCH`, which will contain the name of the target architecture,
+	as well as `OS`, which contains the name of the Operating System (`WIN32`, `UNIX`, `UNKNOWN`).
 
 ### Custom Makefile rules
 In addition to the regular `make` and `make install` command, you can run the following:
