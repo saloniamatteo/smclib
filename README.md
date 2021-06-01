@@ -3,32 +3,44 @@
 Salonia Matteo's C Library (or `SMCLib`) is a C Library written by Salonia Matteo.
 
 I have included at least one example implementation for each individual library.
-To see a list of examples, open the [`examples`](https://github.com/saloniamatteo/smclib/tree/master/examples) folder.
+
+Libraries are located under `lib/`, and examples are located under `src/`.
 
 All of the function headers (and examples) use `_POSIX_C_SOURCE` `200809L`.
 
-### Using a Library
-Just `#include "smclib.h"` in your C source code, making sure you have a copy of `smclib.h` in your current directory,
-as well as the other libraries. If you specifically need to include just one library, just `#include "color.h"`
-(here `color.h` is being used as an example, you can choose any other library)
+### Installation
+SMCLib uses GNU AutoTools, to increase portability. To install libraries
+under `/usr/local/include`, run the following commands:
 
-### Compiling Examples
-For every Library, at least one Example file is included.
-
-If you want to compile all of the Examples in the example folder, run:
 ```bash
-cd smclib/examples
+./configure
 make
+# run the following command as root,
+# or by prepending doas/sudo
+make install
 ```
 
-If you just want to compile a single Example, run:
-```bash
-cd smclib/examples
-make [example]
-```
+This will compile both libraries, and examples.
 
-Where `[example]` is the name of a library.
-(See [this file](https://github.com/saloniamatteo/smclib/blob/master/examples/COMPILING.md) for more info)
+NOTE: SMCLib will be installed as a shared (and static) library, under /usr/local/lib,
+with the name `libsmc`.
+
+### Using Libraries
+Just `#include <smclib.h>` in your C source code, making sure you installed libraries.
+It's also possible to only include a library: for example, include only the
+"color.h" library:
+
+```c
+#include <stdio.h>
+#include <color.h>
+
+int
+main(void)
+{
+	/* some code... */
+	return 0;
+}
+```
 
 ### Included Libraries
 + `smclib.h`: The SMCLib Meta-Library.
@@ -43,3 +55,12 @@ Where `[example]` is the name of a library.
 
 + `platform.h`: Define Target Architecture
 	- Defines `ARCH`, which will contain the name of the target architecture.
+
+### Custom Makefile rules
+In addition to the regular `make` and `make install` command, you can run the following:
+
++ `make cleandir`: Clean the current directory
+(used after updating configure.ac, Makefile.am, etc.)
++ `make headers`: Print the available headers.
++ `make info`: Print information regarding this project.
++ `make version`: Print the current SMCLib version.

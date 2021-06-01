@@ -13,8 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../smclib.h"
+#include <lib/smclib.h>
 
 #ifdef OS_WIN32
 #define OS "Win32"

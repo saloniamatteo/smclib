@@ -16,7 +16,7 @@
 #include "platform.h"
 
 /* SMCLib version */
-static const float _smclib_ver = 1.4;
+static const float _smclib_ver = 1.5;
 
 /* Function prototypes */
 

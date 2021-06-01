@@ -9,9 +9,8 @@
  */
 
 #include <stdio.h>
-
-#include "../compiler.h"
-#include "../platform.h"
+#include <lib/compiler.h>
+#include <lib/platform.h>
 
 #define _POSIX_C_SOURCE 200809L
 
