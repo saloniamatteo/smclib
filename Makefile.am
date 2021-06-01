@@ -23,14 +23,15 @@ ACLOCAL_AMFLAGS = -I m4
 include_HEADERS = lib/color.h
 include_HEADERS += lib/compiler.h
 include_HEADERS += lib/platform.h
-include_HEADERS += lib/smclib.h
+include_HEADERS += lib/temp.h
+include_HEADERS += lib/smclib.h		# Always leave this below
 
 # SMCLib library (installed as libsmc)
 lib_LTLIBRARIES = libsmc.la
 libsmc_la_SOURCES = ${include_HEADERS}
 
 # Build examples after building libraries
-bin_PROGRAMS = examples/smclib examples/color examples/compiler
+bin_PROGRAMS = examples/smclib examples/color examples/compiler examples/temp
 
 # SMCLib main file
 examples_smclib_LDADD = libsmc.la
@@ -43,6 +44,10 @@ examples_color_SOURCES = src/color.c
 # Compiler & Platform
 examples_compiler_LDADD = libsmc.la
 examples_compiler_SOURCES = src/compiler.c
+
+# CPU Temp
+examples_temp_LDADD = libsmc.la
+examples_temp_SOURCES = src/temp.c
 
 # Clean the project directory
 cleandir:

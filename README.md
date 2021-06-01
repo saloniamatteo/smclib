@@ -44,7 +44,7 @@ main(void)
 
 ### Included Libraries
 + `smclib.h`: The SMCLib Meta-Library.
-	- Defines variable (float) `_smclib_ver`, which contains this Library's version;
+	- Declares and Assigns float `_smclib_ver`, which contains this Library's version;
 	Also contains function prototypes.
 
 + `color.h`: Color a string.
@@ -53,9 +53,14 @@ main(void)
 + `compiler.h`: Define Compiler used.
 	- Defines `CC`, which will contain the name of the compiler used (`CLang`, `GCC`, or `MSVC`).
 
-+ `platform.h`: Define Target Architecture
++ `platform.h`: Define Target Architecture.
 	- Defines `ARCH`, which will contain the name of the target architecture,
 	as well as `OS`, which contains the name of the Operating System (`WIN32`, `UNIX`, `UNKNOWN`).
+
++ `temp.h`: Read CPU temperature.
+	- Defines `TEMP_READ_PATH`, which is the location used to read the CPU
+	temperature; has 3 functions: `get_temp()` (get temp in Celsius),
+	`get_temp_k()` (get temp in Kelvin), `get_temp_f()` (get temp in Fahrenheit).
 
 ### Custom Makefile rules
 In addition to the regular `make` and `make install` command, you can run the following:

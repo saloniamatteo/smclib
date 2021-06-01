@@ -9,10 +9,10 @@
  *
  */
 
-#define _POSIX_C_SOURCE 200809L
-
 #ifndef _SMCLIB_COMPILER_H
 #define _SMCLIB_COMPILER_H
+
+#define _POSIX_C_SOURCE 200809L
 
 /* Check CLang */
 #ifdef __clang__

@@ -51,10 +51,10 @@
  * 	- x86_64
  */
 
-#define _POSIX_C_SOURCE 200809L
-
 #ifndef _SMCLIB_PLATFORM_H
 #define _SMCLIB_PLATFORM_H
+
+#define _POSIX_C_SOURCE 200809L
 
 /* Firstly, check if using Windows, or UNIX */
 #if defined(_WIN32) || defined(WIN32) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__)

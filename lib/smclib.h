@@ -21,7 +21,12 @@ static const float _smclib_ver = 1.5;
 /* Function prototypes */
 
 /* color.h */
-extern char *color(char *, int, ...);
-extern int _free_color(void);
+extern char	*color(char *, int, ...);	// Color a string
+extern int	_free_color(void);		// Free allocated memory
+
+/* temp.h */
+extern int	get_temp(void);			// Get CPU temperature (Celsius)
+extern float	get_temp_k(void);		// Get CPU temperature (Kelvin)
+extern float	get_temp_f(void);		// Get CPU temperature (Fahrenheit)
 
 #endif /* __SMCLIB__ */

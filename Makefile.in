@@ -93,7 +93,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = examples/smclib$(EXEEXT) examples/color$(EXEEXT) \
-	examples/compiler$(EXEEXT)
+	examples/compiler$(EXEEXT) examples/temp$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -159,6 +159,9 @@ examples_compiler_DEPENDENCIES = libsmc.la
 am_examples_smclib_OBJECTS = src/smclib.$(OBJEXT)
 examples_smclib_OBJECTS = $(am_examples_smclib_OBJECTS)
 examples_smclib_DEPENDENCIES = libsmc.la
+am_examples_temp_OBJECTS = src/temp.$(OBJEXT)
+examples_temp_OBJECTS = $(am_examples_temp_OBJECTS)
+examples_temp_DEPENDENCIES = libsmc.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -175,7 +178,7 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = src/$(DEPDIR)/color.Po src/$(DEPDIR)/compiler.Po \
-	src/$(DEPDIR)/smclib.Po
+	src/$(DEPDIR)/smclib.Po src/$(DEPDIR)/temp.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -196,9 +199,11 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libsmc_la_SOURCES) $(examples_color_SOURCES) \
-	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES)
+	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES) \
+	$(examples_temp_SOURCES)
 DIST_SOURCES = $(libsmc_la_SOURCES) $(examples_color_SOURCES) \
-	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES)
+	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES) \
+	$(examples_temp_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -385,8 +390,8 @@ AM_CFLAGS = -Wall $(CSTD) $(LINKER) $(OPTS) $(CPUOPTS)
 ACLOCAL_AMFLAGS = -I m4
 
 # Available headers
-include_HEADERS = lib/color.h lib/compiler.h lib/platform.h \
-	lib/smclib.h
+include_HEADERS = lib/color.h lib/compiler.h lib/platform.h lib/temp.h \
+	lib/smclib.h # Always leave this below
 
 # SMCLib library (installed as libsmc)
 lib_LTLIBRARIES = libsmc.la
@@ -403,6 +408,10 @@ examples_color_SOURCES = src/color.c
 # Compiler & Platform
 examples_compiler_LDADD = libsmc.la
 examples_compiler_SOURCES = src/compiler.c
+
+# CPU Temp
+examples_temp_LDADD = libsmc.la
+examples_temp_SOURCES = src/temp.c
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -569,6 +578,11 @@ src/smclib.$(OBJEXT): src/$(am__dirstamp) \
 examples/smclib$(EXEEXT): $(examples_smclib_OBJECTS) $(examples_smclib_DEPENDENCIES) $(EXTRA_examples_smclib_DEPENDENCIES) examples/$(am__dirstamp)
 	@rm -f examples/smclib$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(examples_smclib_OBJECTS) $(examples_smclib_LDADD) $(LIBS)
+src/temp.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+
+examples/temp$(EXEEXT): $(examples_temp_OBJECTS) $(examples_temp_DEPENDENCIES) $(EXTRA_examples_temp_DEPENDENCIES) examples/$(am__dirstamp)
+	@rm -f examples/temp$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(examples_temp_OBJECTS) $(examples_temp_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -580,6 +594,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/color.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/compiler.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/smclib.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/temp.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -925,6 +940,7 @@ distclean: distclean-am
 		-rm -f src/$(DEPDIR)/color.Po
 	-rm -f src/$(DEPDIR)/compiler.Po
 	-rm -f src/$(DEPDIR)/smclib.Po
+	-rm -f src/$(DEPDIR)/temp.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -973,6 +989,7 @@ maintainer-clean: maintainer-clean-am
 		-rm -f src/$(DEPDIR)/color.Po
 	-rm -f src/$(DEPDIR)/compiler.Po
 	-rm -f src/$(DEPDIR)/smclib.Po
+	-rm -f src/$(DEPDIR)/temp.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
