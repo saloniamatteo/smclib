@@ -15,16 +15,29 @@
 int
 main(void)
 {
-	if (get_temp() == -1) {
-		fprintf(stderr, "Could not read CPU temperature!\n");
-		return -1;
-	}
+	/* 50°C */
+	float temp = 50;
 
-	printf("The current CPU temperature is:\n"
-		"Celsius:	%d°C\n"
+	printf("%f°C to:\n"
 		"Kelvin:\t	%f°K\n"
+		"Fahrenheit:	%f°F\n\n",
+		temp, temp_conv(temp, CELSIUS_TO_KELVIN), temp_conv(temp, CELSIUS_TO_FAHRENHEIT));
+
+	/* 100°F */
+	temp = 100;
+
+	printf("%f°F to:\n"
+		"Celsius:	%f°C\n"
+		"Kelvin:\t	%f°K\n\n",
+		temp, temp_conv(temp, FAHRENHEIT_TO_CELSIUS), temp_conv(temp, FAHRENHEIT_TO_KELVIN));
+
+	/* 300°K */
+	temp = 300;
+
+	printf("%f°K to:\n"
+		"Celsius:	%f°C\n"
 		"Fahrenheit:	%f°F\n",
-		get_temp(), get_temp_k(), get_temp_f());
+		temp, temp_conv(temp, KELVIN_TO_CELSIUS), temp_conv(temp, KELVIN_TO_FAHRENHEIT));
 
 	return 0;
 }

@@ -93,7 +93,8 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = examples/smclib$(EXEEXT) examples/color$(EXEEXT) \
-	examples/compiler$(EXEEXT) examples/temp$(EXEEXT)
+	examples/compiler$(EXEEXT) examples/cputemp$(EXEEXT) \
+	examples/temp$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -156,6 +157,9 @@ examples_color_DEPENDENCIES = libsmc.la
 am_examples_compiler_OBJECTS = src/compiler.$(OBJEXT)
 examples_compiler_OBJECTS = $(am_examples_compiler_OBJECTS)
 examples_compiler_DEPENDENCIES = libsmc.la
+am_examples_cputemp_OBJECTS = src/cputemp.$(OBJEXT)
+examples_cputemp_OBJECTS = $(am_examples_cputemp_OBJECTS)
+examples_cputemp_DEPENDENCIES = libsmc.la
 am_examples_smclib_OBJECTS = src/smclib.$(OBJEXT)
 examples_smclib_OBJECTS = $(am_examples_smclib_OBJECTS)
 examples_smclib_DEPENDENCIES = libsmc.la
@@ -178,7 +182,8 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = src/$(DEPDIR)/color.Po src/$(DEPDIR)/compiler.Po \
-	src/$(DEPDIR)/smclib.Po src/$(DEPDIR)/temp.Po
+	src/$(DEPDIR)/cputemp.Po src/$(DEPDIR)/smclib.Po \
+	src/$(DEPDIR)/temp.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -199,11 +204,11 @@ am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(libsmc_la_SOURCES) $(examples_color_SOURCES) \
-	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES) \
-	$(examples_temp_SOURCES)
+	$(examples_compiler_SOURCES) $(examples_cputemp_SOURCES) \
+	$(examples_smclib_SOURCES) $(examples_temp_SOURCES)
 DIST_SOURCES = $(libsmc_la_SOURCES) $(examples_color_SOURCES) \
-	$(examples_compiler_SOURCES) $(examples_smclib_SOURCES) \
-	$(examples_temp_SOURCES)
+	$(examples_compiler_SOURCES) $(examples_cputemp_SOURCES) \
+	$(examples_smclib_SOURCES) $(examples_temp_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -410,6 +415,10 @@ examples_compiler_LDADD = libsmc.la
 examples_compiler_SOURCES = src/compiler.c
 
 # CPU Temp
+examples_cputemp_LDADD = libsmc.la
+examples_cputemp_SOURCES = src/cputemp.c
+
+# Temp
 examples_temp_LDADD = libsmc.la
 examples_temp_SOURCES = src/temp.c
 all: config.h
@@ -572,6 +581,12 @@ src/compiler.$(OBJEXT): src/$(am__dirstamp) \
 examples/compiler$(EXEEXT): $(examples_compiler_OBJECTS) $(examples_compiler_DEPENDENCIES) $(EXTRA_examples_compiler_DEPENDENCIES) examples/$(am__dirstamp)
 	@rm -f examples/compiler$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(examples_compiler_OBJECTS) $(examples_compiler_LDADD) $(LIBS)
+src/cputemp.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+
+examples/cputemp$(EXEEXT): $(examples_cputemp_OBJECTS) $(examples_cputemp_DEPENDENCIES) $(EXTRA_examples_cputemp_DEPENDENCIES) examples/$(am__dirstamp)
+	@rm -f examples/cputemp$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(examples_cputemp_OBJECTS) $(examples_cputemp_LDADD) $(LIBS)
 src/smclib.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 
@@ -593,6 +608,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/color.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/compiler.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/cputemp.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/smclib.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/temp.Po@am__quote@ # am--include-marker
 
@@ -939,6 +955,7 @@ distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 		-rm -f src/$(DEPDIR)/color.Po
 	-rm -f src/$(DEPDIR)/compiler.Po
+	-rm -f src/$(DEPDIR)/cputemp.Po
 	-rm -f src/$(DEPDIR)/smclib.Po
 	-rm -f src/$(DEPDIR)/temp.Po
 	-rm -f Makefile
@@ -988,6 +1005,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -rf $(top_srcdir)/autom4te.cache
 		-rm -f src/$(DEPDIR)/color.Po
 	-rm -f src/$(DEPDIR)/compiler.Po
+	-rm -f src/$(DEPDIR)/cputemp.Po
 	-rm -f src/$(DEPDIR)/smclib.Po
 	-rm -f src/$(DEPDIR)/temp.Po
 	-rm -f Makefile

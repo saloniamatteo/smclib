@@ -31,7 +31,7 @@ lib_LTLIBRARIES = libsmc.la
 libsmc_la_SOURCES = ${include_HEADERS}
 
 # Build examples after building libraries
-bin_PROGRAMS = examples/smclib examples/color examples/compiler examples/temp
+bin_PROGRAMS = examples/smclib examples/color examples/compiler examples/cputemp examples/temp
 
 # SMCLib main file
 examples_smclib_LDADD = libsmc.la
@@ -46,6 +46,10 @@ examples_compiler_LDADD = libsmc.la
 examples_compiler_SOURCES = src/compiler.c
 
 # CPU Temp
+examples_cputemp_LDADD = libsmc.la
+examples_cputemp_SOURCES = src/cputemp.c
+
+# Temp
 examples_temp_LDADD = libsmc.la
 examples_temp_SOURCES = src/temp.c
 

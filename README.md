@@ -57,10 +57,16 @@ main(void)
 	- Defines `ARCH`, which will contain the name of the target architecture,
 	as well as `OS`, which contains the name of the Operating System (`WIN32`, `UNIX`, `UNKNOWN`).
 
-+ `temp.h`: Read CPU temperature.
-	- Defines `TEMP_READ_PATH`, which is the location used to read the CPU
++ `cputemp.h`: Get current CPU temperature.
+	- Defines `CPUTEMP_RD_PATH`, which is the location used to read the CPU
 	temperature; has 3 functions: `get_temp()` (get temp in Celsius),
 	`get_temp_k()` (get temp in Kelvin), `get_temp_f()` (get temp in Fahrenheit).
+
++ `temp.h`: Convert temperatures.
+	- Has 4 functions: `celsius_to()` (convert from Celsius to Kelvin/Fahrenheit),
+	`kelvin_to()` (convert from Kelvin to Celsius/Fahrenheit),
+	`fahrenheit_to()` (convert from Fahrenheit to Celsius/Kelvin),
+	`temp_conv()` (meta-function for conversions).
 
 ### Custom Makefile rules
 In addition to the regular `make` and `make install` command, you can run the following:
